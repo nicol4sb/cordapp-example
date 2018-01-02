@@ -33,7 +33,7 @@ public class NodeDriver {
         final User user = new User("user1", "test", emptySet());
         driver(new DriverParameters().setIsDebug(true), dsl -> {
                     dsl.startNode(new NodeParameters()
-                            .setProvidedName(new CordaX500Name("Controller", "London", "GB"))
+                            .setProvidedName(new CordaX500Name("NetworkMapAndNotary", "London", "GB"))
                             .setAdvertisedServices(ImmutableSet.of(new ServiceInfo(ValidatingNotaryService.Companion.getType(), null))));
 
                     try {
