@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.example.state.NDARequestState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -166,5 +167,13 @@ public class ExampleApi {
             return Response.status(BAD_REQUEST).entity(msg).build();
         }
     }
-    
+
+    @GET
+    @Path("getNdaRequests")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StateAndRef<NDARequestState>> getNdaRequests() {
+        return rpcOps.vaultQuery(NDARequestState.class).getStates();
+    }
+
+
 }
