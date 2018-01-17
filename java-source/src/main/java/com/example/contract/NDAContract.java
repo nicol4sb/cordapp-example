@@ -1,6 +1,6 @@
 package com.example.contract;
 
-import com.example.state.NDARequestState;
+import com.example.state.NDAContractState;
 import net.corda.core.contracts.CommandData;
 import net.corda.core.contracts.CommandWithParties;
 import net.corda.core.contracts.Contract;
@@ -40,7 +40,7 @@ public class NDAContract implements Contract {
                     tx.getInputs().isEmpty());
             require.using("Only one output state should be created.",
                     tx.getOutputs().size() == 1);
-            final NDARequestState out = tx.outputsOfType(NDARequestState.class).get(0);
+            final NDAContractState out = tx.outputsOfType(NDAContractState.class).get(0);
             require.using("The requestor and the recipient cannot be the same entity.",
                     out.getNdaRequestEmitter() != out.getNdaRequestRecipient());
             require.using("All of the participants must be signers.",

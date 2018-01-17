@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * The state object recording IOU agreements between two parties.
  *
- * A state must implement [ContractState] or one of its descendants.
+ * A state must implement [IOUState] or one of its descendants.
  */
 public class IOUState implements LinearState, QueryableState {
     private final Integer value;

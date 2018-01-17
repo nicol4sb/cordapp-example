@@ -10,11 +10,11 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 /**
- * An NDARequestState schema.
+ * An NDAContract schema.
  */
-public class NDARequestSchemaV1 extends MappedSchema {
-    public NDARequestSchemaV1() {
-        super(NDARequestSchema.class, 1, ImmutableList.of(PersistentNDARequest.class));
+public class NDAContractSchemaV1 extends MappedSchema {
+    public NDAContractSchemaV1() {
+        super(NDAContractSchema.class, 1, ImmutableList.of(PersistentNDARequest.class));
     }
 
     @Entity

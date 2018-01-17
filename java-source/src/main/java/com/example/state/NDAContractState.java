@@ -3,7 +3,7 @@ package com.example.state;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.schema.NDARequestSchemaV1;
+import com.example.schema.NDAContractSchemaV1;
 import com.google.common.collect.ImmutableList;
 
 import net.corda.core.contracts.LinearState;
@@ -19,13 +19,13 @@ import net.corda.core.schemas.QueryableState;
  *
  * A state must implement [ContractState] or one of its descendants.
  */
-public class NDARequestState implements LinearState, QueryableState {
+public class NDAContractState implements LinearState, QueryableState {
 	private final String ndaRequestText;
 	private final Party ndaRequestEmitter;
 	private final Party ndaRequestRecipient;
 	private final UniqueIdentifier linearId;
 
-	public NDARequestState(String ndaRequestText, Party ndaRequestEmitter, Party ndaRequestRecipient) {
+	public NDAContractState(String ndaRequestText, Party ndaRequestEmitter, Party ndaRequestRecipient) {
 		this.ndaRequestText = ndaRequestText;
 		this.ndaRequestEmitter = ndaRequestEmitter;
 		this.ndaRequestRecipient = ndaRequestRecipient;
@@ -56,8 +56,8 @@ public class NDARequestState implements LinearState, QueryableState {
 
 	@Override
 	public PersistentState generateMappedObject(MappedSchema schema) {
-		if (schema instanceof NDARequestSchemaV1) {
-			return new NDARequestSchemaV1.PersistentNDARequest(this.ndaRequestEmitter.getName().toString(), this.ndaRequestRecipient.getName().toString(),
+		if (schema instanceof NDAContractSchemaV1) {
+			return new NDAContractSchemaV1.PersistentNDARequest(this.ndaRequestEmitter.getName().toString(), this.ndaRequestRecipient.getName().toString(),
 					this.ndaRequestText, this.linearId.getId());
 		} else {
 			throw new IllegalArgumentException("Unrecognised schema $schema");
@@ -66,7 +66,7 @@ public class NDARequestState implements LinearState, QueryableState {
 
 	@Override
 	public Iterable<MappedSchema> supportedSchemas() {
-		return ImmutableList.of(new NDARequestSchemaV1());
+		return ImmutableList.of(new NDAContractSchemaV1());
 	}
 
 	@Override

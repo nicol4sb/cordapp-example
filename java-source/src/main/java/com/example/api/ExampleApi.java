@@ -16,13 +16,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.example.state.NDARequestState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.flow.ExampleFlow;
 import com.example.flow.NDARequestingFlow;
 import com.example.state.IOUState;
+import com.example.state.NDAContractState;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -172,8 +172,8 @@ public class ExampleApi {
     @GET
     @Path("getNdaRequests")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StateAndRef<NDARequestState>> getNdaRequests() {
-        return rpcOps.vaultQuery(NDARequestState.class).getStates();
+    public List<StateAndRef<NDAContractState>> getNdaRequests() {
+        return rpcOps.vaultQuery(NDAContractState.class).getStates();
     }
 
 
