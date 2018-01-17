@@ -5,7 +5,7 @@ import static net.corda.core.contracts.ContractsDSL.requireThat;
 import java.util.stream.Collectors;
 
 import com.example.contract.NDAContract;
-import com.example.state.NDARequestState;
+import com.example.state.NDAContractState;
 import com.google.common.collect.Sets;
 
 import co.paralleluniverse.fibers.Suspendable;
@@ -94,10 +94,10 @@ public class NDARequestingFlow {
             // Stage 1.
             progressTracker.setCurrentStep(GENERATING_TRANSACTION);
             // Generate an unsigned transaction.
-            NDARequestState ndaRequestState = new NDARequestState(ndaRequestText, getServiceHub().getMyInfo().getLegalIdentities().get(0), otherParty);
+            NDAContractState ndaContractState = new NDAContractState(ndaRequestText, getServiceHub().getMyInfo().getLegalIdentities().get(0), otherParty);
             final Command<NDAContract.Commands.Create> txCommand = new Command<>(new NDAContract.Commands.Create(),
-                    ndaRequestState.getParticipants().stream().map(AbstractParty::getOwningKey).collect(Collectors.toList()));
-            final TransactionBuilder txBuilder = new TransactionBuilder(notary).withItems(new StateAndContract(ndaRequestState, NDAContract.NDA_CONTRACT_ID), txCommand);
+                    ndaContractState.getParticipants().stream().map(AbstractParty::getOwningKey).collect(Collectors.toList()));
+            final TransactionBuilder txBuilder = new TransactionBuilder(notary).withItems(new StateAndContract(ndaContractState, NDAContract.NDA_CONTRACT_ID), txCommand);
 
             // Stage 2.
             progressTracker.setCurrentStep(VERIFYING_TRANSACTION);
@@ -146,8 +146,8 @@ public class NDARequestingFlow {
                 protected void checkTransaction(SignedTransaction stx) {
                     requireThat(require -> {
                         ContractState output = stx.getTx().getOutputs().get(0).getData();
-                        require.using("This must be an NDA request state transaction.", output instanceof NDARequestState);
-                        NDARequestState ndaRequest = (NDARequestState) output;
+                        require.using("This must be an NDA request state transaction.", output instanceof NDAContractState);
+                        NDAContractState ndaRequest = (NDAContractState) output;
                         require.using("I won't accept NDA requests with a text smaller than 20 chars.", ndaRequest.getNdaRequestText().length() > 20);
                         return null;
                     });
