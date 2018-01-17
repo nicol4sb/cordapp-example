@@ -135,20 +135,21 @@ public class ExampleApi {
     @PUT
     @Path("create-ndarequest")
     public Response createNDARequest(@QueryParam("ndaRequestText") String ndaRequestText, @QueryParam("partyName") CordaX500Name partyName) throws InterruptedException, ExecutionException {
-        if (ndaRequestText.length() <= 20) {
+        if ( !(ndaRequestText.length() > 20) ) {
             return Response.status(BAD_REQUEST).entity("Query parameter 'ndaRequestText' - Put some text in this NDA ! More than 20 chars.\n").build();
         }
         if (partyName == null) {
             return Response.status(BAD_REQUEST).entity("Query parameter 'partyName' missing or has wrong format.\n").build();
         }
 
-        // is the party valid? Checking against the central node
+        // Translate the string into a valid Party from the central node/notary service
         final Party otherParty = rpcOps.wellKnownPartyFromX500Name(partyName);
         if (otherParty == null) {
             return Response.status(BAD_REQUEST).entity("Party named " + partyName + "cannot be found.\n").build();
         }
 
         try {
+        		System.out.println("NDARequestText : "+ndaRequestText+" -- otherParty :: "+partyName);
             FlowProgressHandle<SignedTransaction> flowHandle = rpcOps
                     .startTrackedFlowDynamic(NDARequestingFlow.Initiator.class, ndaRequestText, otherParty);
             flowHandle.getProgress().subscribe(evt -> System.out.printf(">> %s\n", evt));
