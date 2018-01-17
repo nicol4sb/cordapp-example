@@ -71,7 +71,7 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
         } else {
             modalInstance.formError = false;
 
-            $uibModalInstance.close();
+            $uibModalInstance.close(); 
 
             const createIOUEndpoint = `${apiBaseURL}create-ndarequest?partyName=${modalInstance.form.counterparty}&ndaRequestText=${modalInstance.form.value}`;
 
