@@ -38,7 +38,7 @@
                     <td>{{request.ndaRequestEmitter}}</td>
                     <td>{{request.ndaRequestRecipient}}</td>
                     <td>{{request.ndaRequestText}}</td>
-                    <td ><button ng-click="demoApp.openModal()" type="button" class="btn btn-primary navbar-btn">Update</button></td>
+                    <td ><button ng-click="demoApp.openModal(request)" type="button" class="btn btn-primary navbar-btn">Update</button></td>
                 </tr>
             </table>
         </div>
@@ -51,13 +51,6 @@
                 <div class="form-group">
                     <label for="value" class="control-label">Value</label>
                     <input type="text" ng-model="modalInstance.form.value" class="form-control" id="value" ng-value="modalInstance.request.ndaRequestText">
-                </div>
-                <div ng-show="modalInstance.formError" class="form-group">
-                    <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        Enter valid NDA request parameters
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">

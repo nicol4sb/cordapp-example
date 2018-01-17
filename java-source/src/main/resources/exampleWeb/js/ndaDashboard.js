@@ -47,14 +47,10 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
     
     // Validate and create IOU.
     modalInstance.updatedaRequest = () => {
-        if (invalidFormInput()) {
-            modalInstance.formError = true;
-        } else {
-            modalInstance.formError = false;
-
+           
             $uibModalInstance.close();
 
-            const createIOUEndpoint = `${apiBaseURL}review-nda?ndaPreviousStateId=${request.linearId}&ndaRequestText=${modalInstance.form.value}`;
+            const createIOUEndpoint = `${apiBaseURL}review-nda?ndaPreviousStateId=${request.linearId.id}&ndaRequestText=${modalInstance.form.value}`;
 
             // Create PO and handle success / fail responses.
             $http.put(createIOUEndpoint).then(
@@ -66,7 +62,7 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
                     modalInstance.displayMessage(result);
                 }
             );
-        }
+        
     };
 
 
