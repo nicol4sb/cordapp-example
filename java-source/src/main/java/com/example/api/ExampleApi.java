@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.flow.ExampleFlow;
-import com.example.flow.NDARequestingFlow;
+import com.example.flow.NDACreationFlow;
 import com.example.state.IOUState;
 import com.example.state.NDAContractState;
 import com.google.common.collect.ImmutableList;
@@ -151,7 +151,7 @@ public class ExampleApi {
         try {
         		System.out.println("NDARequestText : "+ndaRequestText+" -- otherParty :: "+partyName);
             FlowProgressHandle<SignedTransaction> flowHandle = rpcOps
-                    .startTrackedFlowDynamic(NDARequestingFlow.Initiator.class, ndaRequestText, otherParty);
+                    .startTrackedFlowDynamic(NDACreationFlow.Initiator.class, ndaRequestText, otherParty);
             flowHandle.getProgress().subscribe(evt -> System.out.printf(">> %s\n", evt));
 
             // The line below blocks and waits for the flow to return.

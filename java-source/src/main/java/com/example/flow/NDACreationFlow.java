@@ -39,7 +39,7 @@ import net.corda.core.utilities.ProgressTracker.Step;
  * <p>
  * All methods called within the [FlowLogic] sub-class need to be annotated with the @Suspendable annotation.
  */
-public class NDARequestingFlow {
+public class NDACreationFlow {
     @InitiatingFlow
     @StartableByRPC
     public static class Initiator extends FlowLogic<SignedTransaction> {
