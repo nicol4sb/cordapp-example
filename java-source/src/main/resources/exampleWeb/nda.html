@@ -82,19 +82,19 @@ COMING WEEKS WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
             <div class="panel-heading">
                 <h3 class="panel-title">There are no recorded IOUs</h3>
             </div>
-            <div class="panel-body">Use the "Create IOU" button to send an IOU to a peer.</div>
+            <div class="panel-body">Use the "Create NDA Requests" button to send a Request to a peer.</div>
         </div>
         <div ng-show="demoApp.ious.length" class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Recorded IOUs:</h3>
+                <h3 class="panel-title">Recorded Requestss:</h3>
             </div>
         </div>
-        <div ng-repeat="iou in demoApp.ious" class="panel panel-default">
+        <div ng-repeat="request in demoApp.ndaRequest" class="panel panel-default">
             <div class="panel-body">
                 <ul>
-                    <li>Lender: {{iou.lender}}</li>
-                    <li>Borrower: {{iou.borrower}}</li>
-                    <li>Value: {{iou.value}}</li>
+                    <li>Lender: {{request.ndaRequestEmitter}}</li>
+                    <li>Borrower: {{request.ndaRequestRecipient}}</li>
+                    <li>Value: {{request.ndaRequestText}}</li>
                 </ul>
             </div>
         </div>
