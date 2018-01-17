@@ -28,7 +28,7 @@ public class ExampleClientRPC {
 
     public static void main(String[] args) throws ActiveMQException, InterruptedException, ExecutionException {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: ExampleClientRPC <node address>");
+            throw new IllegalArgumentException("Usage -- : ExampleClientRPC  <node address>");
         }
 
         final NetworkHostAndPort nodeAddress = NetworkHostAndPort.parse(args[0]);

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 /**
- * An IOUState schema.
+ * An NDARequestState schema.
  */
 public class NDARequestSchemaV1 extends MappedSchema {
     public NDARequestSchemaV1() {

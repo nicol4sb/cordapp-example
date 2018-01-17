@@ -3,7 +3,6 @@ package com.example.state;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.schema.IOUSchemaV1;
 import com.example.schema.NDARequestSchemaV1;
 import com.google.common.collect.ImmutableList;
 
@@ -16,7 +15,7 @@ import net.corda.core.schemas.PersistentState;
 import net.corda.core.schemas.QueryableState;
 
 /**
- * The state object recording IOU agreements between two parties.
+ * The state object recording NDARequest agreements between two parties.
  *
  * A state must implement [ContractState] or one of its descendants.
  */
@@ -67,12 +66,12 @@ public class NDARequestState implements LinearState, QueryableState {
 
 	@Override
 	public Iterable<MappedSchema> supportedSchemas() {
-		return ImmutableList.of(new IOUSchemaV1());
+		return ImmutableList.of(new NDARequestSchemaV1());
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s(iou=%s, lender=%s, borrower=%s, linearId=%s)", getClass().getSimpleName(), ndaRequestText,
+		return String.format("%s(ndaRequest=%s, emitter=%s, recipient=%s, linearId=%s)", getClass().getSimpleName(), ndaRequestText,
 				ndaRequestEmitter, ndaRequestRecipient, linearId);
 	}
 }

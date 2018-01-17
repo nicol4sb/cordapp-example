@@ -1,12 +1,10 @@
 package com.example.flow;
 
-import static com.example.contract.IOUContract.IOU_CONTRACT_ID;
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 import java.util.stream.Collectors;
 
-import com.example.contract.IOUContract;
-import com.example.state.IOUState;
+import com.example.contract.NDAContract;
 import com.example.state.NDARequestState;
 import com.google.common.collect.Sets;
 
@@ -31,10 +29,10 @@ import net.corda.core.utilities.ProgressTracker;
 import net.corda.core.utilities.ProgressTracker.Step;
 
 /**
- * This flow allows two parties (the [Initiator] and the [Acceptor]) to come to an agreement about the IOU encapsulated
- * within an [IOUState].
+ * This flow allows two parties (the [Initiator] and the [Acceptor]) to come to an agreement about the NDARequest encapsulated
+ * within an [NDARquestState].
  * <p>
- * In our simple example, the [Acceptor] always accepts a valid IOU.
+ * An NDARequest is always accepted by the recipient for now
  * <p>
  * These flows have deliberately been implemented by using only the call() method for ease of understanding. In
  * practice we would recommend splitting up the various stages of the flow into sub-routines.
@@ -49,7 +47,7 @@ public class NDARequestingFlow {
         private final String ndaRequestText;
         private final Party otherParty;
 
-        private final Step GENERATING_TRANSACTION = new Step("Generating transaction based on new IOU.");
+        private final Step GENERATING_TRANSACTION = new Step("Generating transaction based on new NDARequest.");
         private final Step VERIFYING_TRANSACTION = new Step("Verifying contract constraints.");
         private final Step SIGNING_TRANSACTION = new Step("Signing transaction with our private key.");
         private final Step GATHERING_SIGS = new Step("Gathering the counterparty's signature.") {
@@ -97,9 +95,9 @@ public class NDARequestingFlow {
             progressTracker.setCurrentStep(GENERATING_TRANSACTION);
             // Generate an unsigned transaction.
             NDARequestState ndaRequestState = new NDARequestState(ndaRequestText, getServiceHub().getMyInfo().getLegalIdentities().get(0), otherParty);
-            final Command<IOUContract.Commands.Create> txCommand = new Command<>(new IOUContract.Commands.Create(),
+            final Command<NDAContract.Commands.Create> txCommand = new Command<>(new NDAContract.Commands.Create(),
                     ndaRequestState.getParticipants().stream().map(AbstractParty::getOwningKey).collect(Collectors.toList()));
-            final TransactionBuilder txBuilder = new TransactionBuilder(notary).withItems(new StateAndContract(ndaRequestState, IOU_CONTRACT_ID), txCommand);
+            final TransactionBuilder txBuilder = new TransactionBuilder(notary).withItems(new StateAndContract(ndaRequestState, NDAContract.NDA_CONTRACT_ID), txCommand);
 
             // Stage 2.
             progressTracker.setCurrentStep(VERIFYING_TRANSACTION);
@@ -148,9 +146,9 @@ public class NDARequestingFlow {
                 protected void checkTransaction(SignedTransaction stx) {
                     requireThat(require -> {
                         ContractState output = stx.getTx().getOutputs().get(0).getData();
-                        require.using("This must be an IOU transaction.", output instanceof IOUState);
-                        IOUState iou = (IOUState) output;
-                        require.using("I won't accept IOUs with a value over 100.", iou.getValue() <= 100);
+                        require.using("This must be an NDA request state transaction.", output instanceof NDARequestState);
+                        NDARequestState ndaRequest = (NDARequestState) output;
+                        require.using("I won't accept NDA requests with a text smaller than 20 chars.", ndaRequest.getNdaRequestText().length() > 20);
                         return null;
                     });
                 }
