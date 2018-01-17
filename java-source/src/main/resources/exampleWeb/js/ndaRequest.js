@@ -88,6 +88,7 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
         }
     };
 
+
     modalInstance.displayMessage = (message) => {
         const modalInstanceTwo = $uibModal.open({
             templateUrl: 'messageContent.html',
