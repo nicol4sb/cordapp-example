@@ -27,17 +27,18 @@
         <h4 class="modal-title">NDA Request Dashboard</h4>
     </div>
         <div class="modal-body">
-            <table>
-                <tr>
-                    <th>Requestor</th>
-                    <th>Receipent</th>
-                    <th>NDA request Text</th>
+            <table style="border: 1px solid black;">
+                <tr >
+                    <th style="border: 1px solid black;">Requestor</th>
+                    <th style="border: 1px solid black;">Receipent</th>
+                    <th style="border: 1px solid black;">NDA request Text</th>
+                    <th style="border: 1px solid black;">Action</th>
                 </tr>
-                <tr ng-repeat="request in demoApp.ndaRequest" class="panel panel-default">
+                <tr ng-repeat="request in demoApp.ndaRequest">
                     <td>{{request.ndaRequestEmitter}}</td>
                     <td>{{request.ndaRequestRecipient}}</td>
                     <td>{{request.ndaRequestText}}</td>
-                    <td ><button ng-click="demoApp.openModal()" type="button" class="btn btn-primary navbar-btn">Upadate</button></td>
+                    <td ><button ng-click="demoApp.openModal()" type="button" class="btn btn-primary navbar-btn">Update</button></td>
                 </tr>
             </table>
         </div>
