@@ -73,13 +73,13 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
 
             $uibModalInstance.close();
 
-            const createIOUEndpoint = `${apiBaseURL}create-ndarequest?partyName=${modalInstance.form.counterparty}&iouValue=${modalInstance.form.value}`;
+            const createIOUEndpoint = `${apiBaseURL}create-ndarequest?partyName=${modalInstance.form.counterparty}&ndaRequestText=${modalInstance.form.value}`;
 
             // Create PO and handle success / fail responses.
             $http.put(createIOUEndpoint).then(
                 (result) => {
                     modalInstance.displayMessage(result);
-                    demoApp.getIOUs();
+                    demoApp.getNdaRequests();
                 },
                 (result) => {
                     modalInstance.displayMessage(result);
