@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import com.example.flow.ExampleFlow;
 import com.example.flow.NDARequestingFlow;
 import com.example.state.IOUState;
+import com.example.state.NDARequestState;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -166,6 +167,13 @@ public class ExampleApi {
             logger.error(ex.getMessage(), ex);
             return Response.status(BAD_REQUEST).entity(msg).build();
         }
+    }
+    
+    @GET
+    @Path("getNdaRequests")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StateAndRef<NDARequestState>> getNdaRequests() {
+        return rpcOps.vaultQuery(NDARequestState.class).getStates();
     }
     
 }
