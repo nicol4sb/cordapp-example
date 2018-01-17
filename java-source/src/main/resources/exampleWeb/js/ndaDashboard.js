@@ -44,6 +44,9 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
     modalInstance.request = request;
     modalInstance.form = {};
     modalInstance.formError = false;
+    modalInstance.form.value = ndaRequestText.
+    modalInstance.form.ndaRequestRecipient = ndaRequestRecipient.
+    modalInstance.form.counterparty = ndaRequestEmitter.
 
     // Validate and create IOU.
     modalInstance.updatedaRequest = () => {
@@ -54,7 +57,7 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
 
             $uibModalInstance.close();
 
-          //  const createIOUEndpoint = `${apiBaseURL}create-ndarequest?partyName=${modalInstance.form.counterparty}&ndaRequestText=${modalInstance.form.value}`;
+            const createIOUEndpoint = `${apiBaseURL}create-ndarequest?partyName=${modalInstance.form.counterparty}&ndaRequestText=${modalInstance.form.value}`;
 
             // Create PO and handle success / fail responses.
             $http.put(createIOUEndpoint).then(
